@@ -7,29 +7,41 @@ public class Team {
      */
 
     private String teamName;
-    private String[4] teamMate;
+    private TeamMate[] teamMate ;
 
+
+    public TeamMate[] getTeamMate() {
+        return teamMate;
+    }
 
     public String getTeamName() {
         return teamName;
     }
 
 
-    public Team (String teamName, String[] teamMate){
+    public Team (String teamName, TeamMate[] teamMate){
         this.teamName = teamName;
         this.teamMate = teamMate;
     }
 
     public void showResults(){
+        System.out.println("Итак, СТАРТ!!!");
+        for (TeamMate i: teamMate) {
+            if (i.result == 1) {System.out.println(i.getName() + " прошел дистанцию!");}
+            else System.out.println(i.getName() + " выдохся и не прошел =(");
+
+        }
 
     }
 
     public void teamInfo(){
         System.out.println("Название команды: " + getTeamName());
-        System.out.println("Количество участников: " + teamMate.length());
+        System.out.println("Количество участников: " + teamMate.length);
         System.out.println("Имена участников:");
-        for(String i: teamMate) {
-            System.out.println(i);
+        for(TeamMate i: teamMate) {
+            System.out.println(i.getName());
         }
     }
+
+
 }
