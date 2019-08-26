@@ -25,6 +25,11 @@ public class Team {
     }
 
     public void teamInfo(){
-        System.out.println("Название команды: " + this.getTeamName());
+        System.out.println("Название команды: " + getTeamName());
+        System.out.println("Количество участников: " + teamMate.length());
+        System.out.println("Имена участников:");
+        for(String i: teamMate) {
+            System.out.println(i);
+        }
     }
 }
