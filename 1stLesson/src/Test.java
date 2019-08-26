@@ -31,8 +31,23 @@ public class Test {
          * team.showResults(); // Показываем результаты
          */
 
-        Team team = new Team("CrazyRunners", new String[]{"John", "Dazy", "Colin", "Ted"});
+        Course course = new Course(new int[]{1, 2, 3, 4}); //Создаем массив препятствий, с высотой в метрах
 
-        team.teamInfo();
+
+       //Создаем массив участников, который подставим в конструктор класса Team
+       //У каждого участника есть параметр jump - максимальная высота прыжка
+        TeamMate[] member = new TeamMate[]{
+                new TeamMate("Ivan", 5),
+                new TeamMate("Vasya", 4),
+                new TeamMate("Ilya", 3),
+                new TeamMate("Natalia", 4)
+        };
+
+        Team team = new Team("Crazy" , member); //Создаем команду с названием и массивом мемберов
+
+    team.teamInfo(); //Информация о команде
+    course.doIt(team); //Просим команду пройти полосу препятствий
+    team.showResults(); //Показываем, кто прошел, а кто нет
+        
     }
 }
