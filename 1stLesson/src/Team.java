@@ -7,7 +7,7 @@ public class Team {
      */
 
     private String teamName;
-    private String[] teamMate;
+    private String[4] teamMate;
 
 
     public String getTeamName() {
