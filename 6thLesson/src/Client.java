@@ -1,60 +1,72 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.Socket;
+import java.util.Scanner;
 
 public class Client {
     public static void main(String[] args) throws IOException {
-        CLI cli = new CLI();
-        System.out.println("Client started");
 
-        new Thread(() -> {
-            try {
-                cli.readMSG();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }).start();
+            ChatClient client = new ChatClient();
+            System.out.println("Клиент запущен! \n");
 
-        new Thread(() -> {
-            try {
-                cli.sendMSG();
-            } catch (IOException e) {
-                e.printStackTrace();
+            new Thread(() -> {
+                try {
+                    client.readMessageFromServer();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
             }
-        }).start();
+            ).start();
+
+            new Thread(() -> {
+                try {
+                    client.writeToConsole();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }).start();
     }
 }
 
-class CLI {
-    private Socket socket;
-    private BufferedReader in;
-    private PrintWriter out;
-    private BufferedReader console;
-    private String userMSG, serverMSG;
 
-    public CLI() throws IOException {
-        socket = new Socket("localhost",1111);
-        in  = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-        out = new PrintWriter(socket.getOutputStream(),true);
-        console = new BufferedReader(new InputStreamReader(System.in));
+class ChatClient {
+    private Socket socket;
+    private DataInputStream inClient;
+    private DataOutputStream outClient;
+    private Scanner consoleMessageFromClient;
+
+    public ChatClient() throws IOException {
+        socket = new Socket("localhost",80);
+        inClient  = new DataInputStream(socket.getInputStream());
+        outClient = new DataOutputStream(socket.getOutputStream());
     }
 
-    void sendMSG() throws IOException {
+    void writeToConsole() throws IOException {
         while (true) {
-            if ((userMSG = console.readLine()) != null) {
-                out.println(userMSG);
-                if (userMSG.equalsIgnoreCase("close") || userMSG.equalsIgnoreCase("exit")) break;
-            }
+            consoleMessageFromClient = new Scanner(System.in);
+            String consoleTextFromClient = consoleMessageFromClient.nextLine();
+            if (consoleMessageFromClient != null || !consoleTextFromClient.trim().isEmpty()) {
+                sendMessageFromClient(consoleTextFromClient);
+            } else System.err.println("Нельзя отправить пустое сообщение");
         }
     }
 
-    void readMSG() throws IOException {
-        while (true) {
-            if ((serverMSG = in.readLine()) != null){
-                System.out.println(serverMSG);
+    void sendMessageFromClient(String msg) throws IOException {
+        if (!socket.isClosed()) {
+            if (msg.equals("q") || msg.equals("exit")) {
+                System.out.println("Соединение закрыто на Клиенте");
+                socket.close();
             }
+            outClient.writeUTF(msg);
+       } else {
+            System.out.println("Соединение закрыто");
+        }
+    }
+
+    void readMessageFromServer() throws IOException {
+        while(!socket.isClosed()) {
+            String messageFromServer = inClient.readUTF();
+            System.out.println("Сервер: " + messageFromServer);
         }
     }
 }
