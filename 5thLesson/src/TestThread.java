@@ -37,9 +37,13 @@ public class TestThread {
         try {
             myThread.join();
             myThread1.join();
+            System.arraycopy(myThread.threadArray, 0, arr, 0, myThread.threadArray.length);
+            System.arraycopy(myThread1.threadArray, 0, arr, myThread.threadArray.length, myThread1.threadArray.length);
+
         } catch (InterruptedException e) {
             System.out.println("Прерван main поток");
         }
+
 
         System.out.println("Метод 2 выполнялся: " + (+ System.currentTimeMillis() - a) + "ms");
     }
