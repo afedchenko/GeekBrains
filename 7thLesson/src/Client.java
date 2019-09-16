@@ -45,7 +45,7 @@ public class Client {
         out.close();
     }
 
-    public void putMessage(String message){
+    public void putMessage(String message) {
         try {
             out.write(message + '\n');
             out.flush();
@@ -54,7 +54,7 @@ public class Client {
         }
     }
 
-    public void showDialog(){
+    public void showDialog() {
         System.out.println(in.nextLine());
     }
 

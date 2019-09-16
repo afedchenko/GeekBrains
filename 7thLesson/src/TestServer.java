@@ -7,7 +7,7 @@ public class TestServer {
         for (int i = 0; i < 100; i++) {
             clients.add(new Client());
         }
-        Thread t = new Thread(()-> {
+        Thread t = new Thread(() -> {
             for (Client client : clients) {
                 for (int j = 0; j < 30; j++) {
                     client.putMessage("msg from " + client.getName() + " - " + j);

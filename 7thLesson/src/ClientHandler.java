@@ -3,18 +3,21 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Scanner;
 
-public class ClientHandler implements Runnable{
+public class ClientHandler implements Runnable {
 
     private Server server;
     private PrintWriter out;
 
     private Scanner in;
     private static final String HOST = "localhost";
-    private static final int PORT = 81;
+    private static final int PORT = 80;
+    private static final String PERSONAL_MESSAGE_PREFIX = "/w ";
 
     private Socket clientSocket = null;
 
     private static int clients_count = 0;
+
+    private String clientName;
 
     public ClientHandler(Socket socket, Server server) {
         try {
@@ -37,22 +40,35 @@ public class ClientHandler implements Runnable{
             while (true) {
                 if (in.hasNext()) {
                     String clientMessage = in.nextLine();
-                    if (clientMessage.equalsIgnoreCase("##session##end##")) {
-                        break;
+
+                    if (clientMessage.startsWith(Server.NEW_CLIENT_NAME)) {
+                        server.removeClientName(clientName);
+                        clientName = clientMessage.substring(Server.NEW_CLIENT_NAME.length());
+                        server.addClientName(clientName, this);
+                    } else {
+                        if (clientMessage.equalsIgnoreCase("##session##end##")) {
+                            break;
+                        }
+                        if (clientMessage.startsWith(PERSONAL_MESSAGE_PREFIX)) {
+                            String mess = clientMessage.substring(PERSONAL_MESSAGE_PREFIX.length());
+                            String nick = mess.substring(0, mess.indexOf(" "));
+                            mess = mess.substring(mess.indexOf(" ") + 1);
+                            server.sendMessageToNick(nick, mess);
+                        } else {
+                            System.out.println(clientMessage);
+                            server.sendMessageToAllClients("Message from server: " + clientMessage);
+                        }
                     }
-                    System.out.println(clientMessage);
-                    server.sendMessageToAllClients("Message from server: " + clientMessage);
                 }
                 Thread.sleep(100);
             }
-        }
-        catch (InterruptedException ex) {
+        } catch (InterruptedException ex) {
             ex.printStackTrace();
-        }
-        finally {
+        } finally {
             this.close();
         }
     }
+
     // отправляем сообщение
     public void sendMsg(String msg) {
         try {
@@ -62,6 +78,7 @@ public class ClientHandler implements Runnable{
             ex.printStackTrace();
         }
     }
+
     // клиент выходит из чата
     public void close() {
         // удаляем клиента из списка

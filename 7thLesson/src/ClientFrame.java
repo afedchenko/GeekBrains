@@ -9,7 +9,7 @@ public class ClientFrame extends JFrame {
     // адрес сервера
     private static String SERVER_HOST = "localhost";
     // порт
-    private static int SERVER_PORT = 8080;
+    private static int SERVER_PORT = 81;
     // клиентский сокет
     private Socket clientSocket;
     // входящее сообщение
@@ -22,6 +22,7 @@ public class ClientFrame extends JFrame {
     private JTextArea jtaTextAreaMessage;
     // имя клиента
     private String clientName = "";
+
     // получаем имя клиента
     public String getClientName() {
         return this.clientName;
@@ -45,7 +46,7 @@ public class ClientFrame extends JFrame {
         jFrame.add(panel);
         jFrame.setBounds(0, 0, 500, 300);
         jFrame.setVisible(true);
-        button.addActionListener(e->{
+        button.addActionListener(e -> {
             SERVER_HOST = host.getText();
             SERVER_PORT = Integer.parseInt(port.getText());
             port.setText("Порт и хост введены, можно зкрыть окно");
@@ -100,6 +101,12 @@ public class ClientFrame extends JFrame {
                 public void focusGained(FocusEvent e) {
                     jtfName.setText("");
                 }
+                @Override
+                public void focusLost(FocusEvent e){
+                    if(!getClientName().isEmpty())
+                    outMessage.println(Server.NEW_CLIENT_NAME + getClientName());
+                }
+
             });
             // в отдельном потоке начинаем работу с сервером
             new Thread(() -> {
