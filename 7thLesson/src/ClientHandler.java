@@ -34,17 +34,15 @@ public class ClientHandler implements Runnable {
     @Override
     public void run() {
         try {
-            server.sendMessageToAllClients("Новый участник вошёл в чат!");
-            server.sendMessageToAllClients("Клиентов в чате = " + clients_count);
+            server.sendMessageToAllClients("Новый участник вошёл в чат!", this);
+            server.sendMessageToAllClients("Клиентов в чате = " + clients_count, this);
 
             while (true) {
                 if (in.hasNext()) {
                     String clientMessage = in.nextLine();
 
                     if (clientMessage.startsWith(Server.NEW_CLIENT_NAME)) {
-                        server.removeClientName(clientName);
                         clientName = clientMessage.substring(Server.NEW_CLIENT_NAME.length());
-                        server.addClientName(clientName, this);
                     } else {
                         if (clientMessage.equalsIgnoreCase("##session##end##")) {
                             break;
@@ -53,10 +51,10 @@ public class ClientHandler implements Runnable {
                             String mess = clientMessage.substring(PERSONAL_MESSAGE_PREFIX.length());
                             String nick = mess.substring(0, mess.indexOf(" "));
                             mess = mess.substring(mess.indexOf(" ") + 1);
-                            server.sendMessageToNick(nick, mess);
+                            server.sendMessageToNick(nick, mess, this);
                         } else {
                             System.out.println(clientMessage);
-                            server.sendMessageToAllClients("Message from server: " + clientMessage);
+                            server.sendMessageToAllClients(clientMessage, this);
                         }
                     }
                 }
@@ -84,6 +82,10 @@ public class ClientHandler implements Runnable {
         // удаляем клиента из списка
         server.removeClient(this);
         clients_count--;
-        server.sendMessageToAllClients("Клиентов в чате = " + clients_count);
+        server.sendMessageToAllClients("Клиентов в чате = " + clients_count, this);
+    }
+
+    public String getClientName() {
+        return clientName;
     }
 }

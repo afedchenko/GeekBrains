@@ -22,7 +22,7 @@ public class Client {
         cnt++;
         number = cnt;
         try {
-            clientSocket = new Socket("localhost", 81);
+            clientSocket = new Socket("localhost", 80);
         } catch (IOException e) {
             e.printStackTrace();
         }

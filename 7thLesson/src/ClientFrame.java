@@ -9,7 +9,7 @@ public class ClientFrame extends JFrame {
     // адрес сервера
     private static String SERVER_HOST = "localhost";
     // порт
-    private static int SERVER_PORT = 81;
+    private static int SERVER_PORT = 80;
     // клиентский сокет
     private Socket clientSocket;
     // входящее сообщение
@@ -37,6 +37,8 @@ public class ClientFrame extends JFrame {
         JButton button = new JButton("OK");
         JTextArea host = new JTextArea();
         JTextArea port = new JTextArea();
+        host.setText("localhost");
+        port.setText("80");
         panel.add(l1);
         panel.add(host);
         panel.add(l2);
@@ -93,6 +95,15 @@ public class ClientFrame extends JFrame {
                 @Override
                 public void focusGained(FocusEvent e) {
                     jtfMessage.setText("");
+                    if(jtfName.getText().isEmpty()){
+                        jtfName.setText("Введите ваше имя: ");
+                    }else {
+                        if (!clientName.equals(jtfName.getText())) {
+                            clientName = jtfName.getText();
+                            outMessage.println(Server.NEW_CLIENT_NAME + clientName);
+                            outMessage.flush();
+                        }
+                    }
                 }
             });
             // при фокусе поле имя очищается
@@ -101,12 +112,6 @@ public class ClientFrame extends JFrame {
                 public void focusGained(FocusEvent e) {
                     jtfName.setText("");
                 }
-                @Override
-                public void focusLost(FocusEvent e){
-                    if(!getClientName().isEmpty())
-                    outMessage.println(Server.NEW_CLIENT_NAME + getClientName());
-                }
-
             });
             // в отдельном потоке начинаем работу с сервером
             new Thread(() -> {
@@ -163,7 +168,7 @@ public class ClientFrame extends JFrame {
     // отправка сообщения
     public void sendMsg() {
         // формируем сообщение для отправки на сервер
-        String messageStr = jtfName.getText() + ": " + jtfMessage.getText();
+        String messageStr = jtfMessage.getText();
         // отправляем сообщение
         outMessage.println(messageStr);
         outMessage.flush();

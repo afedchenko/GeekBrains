@@ -1,23 +1,17 @@
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class Server {
 
-    static final int PORT = 81;
+    static final int PORT = 80;
 
-    static final String NEW_CLIENT_NAME = "NEW_CLIENT_NAME";
+    static final String NEW_CLIENT_NAME = "/name ";
 
     private ConcurrentLinkedQueue<ClientHandler> clients
             = new ConcurrentLinkedQueue<>();
-
-    HashMap<String, ClientHandler> clientsMap = new HashMap<>();
-
-    private ConcurrentLinkedQueue<String>  clientNames = new ConcurrentLinkedQueue<>();
 
     public Server() {
         Socket clientSocket = null;
@@ -57,14 +51,21 @@ public class Server {
             System.out.println(cl);
     }
 
-    public void sendMessageToAllClients(String msg) {
+    public void sendMessageToAllClients(String msg, ClientHandler handler) {
         for (ClientHandler o : clients) {
-            o.sendMsg(msg);
+            o.sendMsg((handler.getClientName() == null ? "server" : handler.getClientName()) + ": " + msg);
         }
     }
 
-    public void sendMessageToNick(String client, String msg){
-        clientsMap.get(client).sendMsg(msg);
+    public void sendMessageToNick(String client, String msg, ClientHandler handler){
+        if(handler.getClientName() != null) {
+
+            for (ClientHandler o : clients) {
+                if(o.getClientName().equals(client)){
+                    o.sendMsg("Personal message from " + handler.getClientName() + ": " + msg);
+                }
+            }
+        }
     }
 
     public void removeClient(int pos) {
@@ -83,14 +84,6 @@ public class Server {
 
     public void removeClient(ClientHandler client) {
         clients.remove(client);
-    }
-
-    public void addClientName(String name, ClientHandler clientHandler){
-        clientsMap.put(name, clientHandler);
-    }
-
-    public void removeClientName(String name){
-        clientsMap.remove(name);
     }
 
 
