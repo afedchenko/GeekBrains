@@ -1,4 +1,3 @@
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -17,10 +16,10 @@ public class Test {
     }
 
     private static void test() {
-        String[] a = {"Hello", "Goodbye"};
+        String[] a = {"Лево", "Право"};
         swap(a);
         System.out.println("a:" + Arrays.toString(a));
-        List<String> l = new ArrayList<String>(Arrays.asList(a));
+        List<String> l = new ArrayList<>(Arrays.asList(a));
         swap(l);
         System.out.println("l:" + l);
     }
@@ -37,6 +36,25 @@ public class Test {
         //Проверка 1-й задачи
         test();
 
-        //Коробки с фруктами
+        //Создаем листы фруктов для добавления в коробки
+        ArrayList<Orange> oranges = new ArrayList<>();
+        ArrayList<Apple> apples = new ArrayList<>();
+
+        //Заполняем листы фруктами
+        for (int i = 0; i < 20; i++) {
+            oranges.add(new Orange());
+            apples.add(new Apple());
+        }
+
+        //Создаем коробки, кладем в них фрукты, взвешиваем
+        Box<Orange> boxOfOranges = new Box<>();
+        boxOfOranges.addFruitsIntoBox(oranges);
+        System.out.println("Апельсины в коробке весят " + boxOfOranges.getWeight() + " кг");
+
+        Box<Apple> boxOfApples = new Box<>();
+        boxOfApples.addFruitsIntoBox(apples);
+        System.out.println("Яблоки в коробке весят " + boxOfApples.getWeight() + " кг");
+
+
     }
 }
