@@ -16,7 +16,7 @@ public class Test {
     }
 
     private static void test() {
-        String[] a = {"Лево", "Право"};
+        String[] a = {"Лево", "Правоä"};
         swap(a);
         System.out.println("a:" + Arrays.toString(a));
         List<String> l = new ArrayList<>(Arrays.asList(a));
@@ -47,14 +47,23 @@ public class Test {
         }
 
         //Создаем коробки, кладем в них фрукты, взвешиваем
-        Box<Orange> boxOfOranges = new Box<>();
+        Box<Orange> boxOfOranges = new Box<>("boxOfOranges");
         boxOfOranges.addFruitsIntoBox(oranges);
         System.out.println("Апельсины в коробке весят " + boxOfOranges.getWeight() + " кг");
 
-        Box<Apple> boxOfApples = new Box<>();
+        Box<Apple> boxOfApples = new Box<>("boxOfApples");
         boxOfApples.addFruitsIntoBox(apples);
         System.out.println("Яблоки в коробке весят " + boxOfApples.getWeight() + " кг");
 
+        //Сравниваем по весу коробки Апельсинов с Яблоками
+        System.out.println("Равны ли по весу коробки? " + boxOfApples.compare(boxOfOranges));
+
+
+        //Добавляем пару коробок, чтобы пересыпать фрукты
+        Box<Orange> boxOfOranges1 = new Box<>("boxOfOranges1");
+        Box<Apple> boxOfApples1 = new Box<>("boxOfApples1");
+        boxOfOranges.replaceFruitsToAnotherBox(boxOfOranges1);
+        // boxOfApples.replaceFruitsToAnotherBox(boxOfOranges); // Это не будет работать из-за сортировки типов
 
     }
 }
