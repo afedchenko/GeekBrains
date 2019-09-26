@@ -1,3 +1,4 @@
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -24,8 +25,18 @@ public class Test {
         System.out.println("l:" + l);
     }
 
+    //2. Написать метод, который преобразует массив в ArrayList;
+
+    public static <T> ArrayList<T> changeArrayToArrayList(T[] simpleArray) {
+        return new ArrayList<>(Arrays.asList(simpleArray));
+    }
+
+    //Тест
     public static void main(String[] args) {
+
+        //Проверка 1-й задачи
         test();
+
+        //Коробки с фруктами
     }
 }
-//2. Написать метод, который преобразует массив в ArrayList;
