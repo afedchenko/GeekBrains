@@ -11,7 +11,7 @@ public class TestTest extends Assert {
 
     @Before
     public void startTest() {
-       testTask = new TestTask();
+        testTask = new TestTask();
     }
 
 
