@@ -1,10 +1,20 @@
 <resources>
+
+    <!-- Main screen -->
     <string name="app_name">Weather</string>
     <string name="city_name_main_screen">Novosibirsk</string>
     <string name="city_weather_main_screen">-3°C</string>
     <string name="searchButtonText">Cities</string>
     <string name="menuButtonText">Menu</string>
+
+    <!-- List cities screen -->
     <string name="Back">Back</string>
     <string name="switch_information">More</string>
     <string name="apply_btn">Apply</string>
+
+    <!-- Dictionaries -->
+    <string name="wind_speed">Wind speed</string>
+    <string name="air_pressure">Air pressure</string>
+    <string name="air_humidity">Air humidity</string>
+
 </resources>
