@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Weather</string>
+    <string name="city_name_main_screen">Novosibirsk</string>
+    <string name="city_weather_main_screen">-3°C</string>
+    <string name="searchButtonText">Cities</string>
+    <string name="menuButtonText">Menu</string>
+    <string name="Back">Back</string>
+    <string name="switch_information">More</string>
+    <string name="apply_btn">Apply</string>
+</resources>
