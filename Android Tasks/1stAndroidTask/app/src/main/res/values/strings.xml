@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Weather</string>
+    <string name="city_name_main_screen">Новосибирск</string>
+    <string name="city_weather_main_screen">-3</string>
+</resources>
