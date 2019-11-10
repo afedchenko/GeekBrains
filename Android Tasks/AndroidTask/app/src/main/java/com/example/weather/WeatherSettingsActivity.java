@@ -1,33 +1,48 @@
 package com.example.weather;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Intent;
+import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
 
-    private static final String TAG = "MainActivity";
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
+public class WeatherSettingsActivity extends Activity {
+    private static final String TAG = "WeatherSettingsActivity";
+    private EditText cityName;
+    private static String CITY_NAME = "city_name";
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(TAG,"OnCreate");
         Toast.makeText(getApplicationContext(), "onCreate", Toast.LENGTH_SHORT).show();
-        setContentView(R.layout.activity_main);
-        findViewById(R.id.buttonSetingsOnMainScreen).setOnClickListener(new View.OnClickListener() {
+        setContentView(R.layout.weather_settings);
+
+        findViewById(R.id.buttonBackToMain).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                clickOnSettingsButton();
+                clickOnBackButton();
             }
         });
+
+        cityName = findViewById(R.id.changeCityName);
+        restoreData(savedInstanceState);
     }
 
-    void clickOnSettingsButton() {
-        startActivity(new Intent(this, WeatherSettingsActivity.class));
+    private void restoreData(Bundle savedInstanceState) {
+        if(savedInstanceState == null) return;
+        cityName.setText(savedInstanceState.getString(CITY_NAME, "@string/saint_petersburg"));
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString(CITY_NAME, cityName.getText().toString());
     }
 
     @Override
@@ -63,5 +78,9 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
         Log.d(TAG, "onDestroy");
         Toast.makeText(getApplicationContext(), "onDestroy", Toast.LENGTH_SHORT).show();
+    }
+
+    void clickOnBackButton(){
+        finish();
     }
 }
