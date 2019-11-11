@@ -15,8 +15,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d(TAG,"OnCreate");
-        Toast.makeText(getApplicationContext(), "onCreate", Toast.LENGTH_SHORT).show();
+        showLog("OnCreate");
         setContentView(R.layout.activity_main);
         findViewById(R.id.buttonSetingsOnMainScreen).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -33,35 +32,35 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        Log.d(TAG,"onStart");
-        Toast.makeText(getApplicationContext(), "onStart", Toast.LENGTH_SHORT).show();
+        showLog("onStart");
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        Log.d(TAG, "onResume");
-        Toast.makeText(getApplicationContext(), "onResume", Toast.LENGTH_SHORT).show();
+        showLog("onResume");
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        Log.d(TAG, "onPause");
-        Toast.makeText(getApplicationContext(), "onPause", Toast.LENGTH_SHORT).show();
+        showLog("onPause");
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        Log.d(TAG, "onStop");
-        Toast.makeText(getApplicationContext(), "onStop", Toast.LENGTH_SHORT).show();
+        showLog("onStop");
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.d(TAG, "onDestroy");
-        Toast.makeText(getApplicationContext(), "onDestroy", Toast.LENGTH_SHORT).show();
+        showLog("onDestroy");
+    }
+
+    private void showLog(String onStart) {
+        Log.d(TAG, onStart);
+        Toast.makeText(getApplicationContext(), onStart, Toast.LENGTH_SHORT).show();
     }
 }

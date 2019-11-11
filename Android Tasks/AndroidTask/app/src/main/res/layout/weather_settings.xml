@@ -1,89 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView
 
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:layout_height="match_parent">
 
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="16dp"
-    android:orientation="vertical">
-
-    <TextView
-        android:id="@+id/textViewSettingsBlockName"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:text="@string/set_view_parameters" />
+        android:descendantFocusability="beforeDescendants"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical"
+        android:padding="16dp">
 
-    <androidx.appcompat.widget.AppCompatCheckBox
-        android:id="@+id/checkBoxWindSpeed"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:checked="true"
-        android:text="@string/wind_speed" />
-
-    <androidx.appcompat.widget.AppCompatCheckBox
-        android:id="@+id/checkBoxAirPressure"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:checked="true"
-        android:text="@string/air_pressure" />
-
-    <CheckBox
-        android:id="@+id/checkBoxAirHumidity"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/air_humidity" />
-
-    <TextView
-        android:id="@+id/textViewCitiesBlockName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="8dp"
-        android:text="@string/cities" />
-
-    <RadioGroup
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <RadioButton
-            android:id="@+id/radioButtonMoscow"
+        <TextView
+            android:id="@+id/textViewSettingsBlockName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/moscow" />
+            android:layout_marginBottom="8dp"
+            android:text="@string/set_view_parameters" />
 
-        <RadioButton
-            android:id="@+id/radioButtonSaintPetersburg"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/saint_petersburg" />
-
-        <RadioButton
-            android:id="@+id/radioButtonOtherCity"
+        <androidx.appcompat.widget.AppCompatCheckBox
+            android:id="@+id/checkBoxWindSpeed"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:checked="true"
-            android:text="@string/other" />
+            android:text="@string/wind_speed" />
 
-    </RadioGroup>
+        <androidx.appcompat.widget.AppCompatCheckBox
+            android:id="@+id/checkBoxAirPressure"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="@string/air_pressure" />
 
-    <EditText
-        android:id="@+id/changeCityName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/novosibirsk" />
+        <CheckBox
+            android:id="@+id/checkBoxAirHumidity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/air_humidity" />
 
-    <Button
-        android:id="@+id/buttonBackToMain"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/Back" />
+        <TextView
+            android:id="@+id/textViewCitiesBlockName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"
+            android:text="@string/cities" />
 
-</LinearLayout>
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RadioButton
+                android:id="@+id/radioButtonMoscow"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/moscow" />
+
+            <RadioButton
+                android:id="@+id/radioButtonSaintPetersburg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/saint_petersburg" />
+
+            <RadioButton
+                android:id="@+id/radioButtonOtherCity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="@string/other" />
+
+        </RadioGroup>
+
+        <EditText
+            android:id="@+id/changeCityName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/novosibirsk" />
+
+        <Button
+            android:id="@+id/buttonBackToMain"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/Back" />
+
+    </LinearLayout>
 
 </ScrollView>
