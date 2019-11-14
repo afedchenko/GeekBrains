@@ -7,6 +7,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -17,8 +19,13 @@ public class MainActivity extends AppCompatActivity {
     private boolean humidityEnabled = true;
     private boolean pressureEnabled = true;
     private boolean windSpeedEnabled = true;
+    private boolean moscowCitySelected = true;
+    private boolean peterburgCitySelected;
+    private boolean otherCitySelected;
     private LinearLayout humidity, pressure, windSpeed;
     private Button browser, settings;
+    private TextView currentCity;
+    private String cityFromSettings;
 
 
     @Override
@@ -53,6 +60,9 @@ public class MainActivity extends AppCompatActivity {
 
         windSpeed = findViewById(R.id.activity_main_linear_layout_wind_speed);
 
+        currentCity = findViewById(R.id.activity_main_city_current);
+        currentCity.setText(R.string.moscow);
+
     }
 
     private void clickOnSettingsButton() {
@@ -60,6 +70,10 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra(WeatherSettingsActivity.PRESSURE, pressureEnabled);
         intent.putExtra(WeatherSettingsActivity.HUMIDITY, humidityEnabled);
         intent.putExtra(WeatherSettingsActivity.WIND_SPEED, windSpeedEnabled);
+        intent.putExtra(WeatherSettingsActivity.CITY_MOSCOW, moscowCitySelected);
+        intent.putExtra(WeatherSettingsActivity.CITY_PETERBURG, peterburgCitySelected);
+        intent.putExtra(WeatherSettingsActivity.CITY_OTHER, otherCitySelected);
+        intent.putExtra(WeatherSettingsActivity.CITY_NAME, cityFromSettings);
 
         startActivityForResult(intent, weatherSettingsActivityResultCode);
     }
@@ -67,30 +81,49 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if(resultCode == RESULT_OK && requestCode == weatherSettingsActivityResultCode) {
-            updateWeatheParams(data);
+        if (resultCode == RESULT_OK && requestCode == weatherSettingsActivityResultCode) {
+            updateWeatherParams(data);
         }
     }
 
-    private void updateWeatheParams(@Nullable Intent data) {
+    private void updateWeatherParams(@Nullable Intent data) {
         humidityEnabled = data.getBooleanExtra(WeatherSettingsActivity.HUMIDITY, false);
         pressureEnabled = data.getBooleanExtra(WeatherSettingsActivity.PRESSURE, false);
         windSpeedEnabled = data.getBooleanExtra(WeatherSettingsActivity.WIND_SPEED, false);
+        moscowCitySelected = data.getBooleanExtra(WeatherSettingsActivity.CITY_MOSCOW, true);
+        peterburgCitySelected = data.getBooleanExtra(WeatherSettingsActivity.CITY_PETERBURG, false);
+        otherCitySelected = data.getBooleanExtra(WeatherSettingsActivity.CITY_OTHER, false);
+        cityFromSettings = data.getStringExtra(WeatherSettingsActivity.CITY_NAME);
 
-        checkValues();
+        checkSwitchValues();
+        changeCityOnMainActivity();
     }
 
-    private void checkValues() {
+    //Проверяем все пришедшие значения свитчей сеттингов
+    private void checkSwitchValues() {
         changeVisibilityView(humidityEnabled, humidity);
         changeVisibilityView(pressureEnabled, pressure);
         changeVisibilityView(windSpeedEnabled, windSpeed);
+
     }
 
-    //Проверяем, что нам пришло из настроек, и в зависимости от true/false скрываем или показываем view
-    private void changeVisibilityView (boolean isChecked, LinearLayout layout) {
+    //Проверяем, что нам пришло из настроек свичей, и в зависимости от true/false скрываем или показываем view
+    private void changeVisibilityView(boolean isChecked, LinearLayout layout) {
         if (isChecked) {
             layout.setVisibility(View.VISIBLE);
         } else layout.setVisibility(View.GONE);
+    }
+
+
+    //Проверяем, что нам пришло из радиогруппы, и в зависимости от этого устанавливаем город
+    private void changeCityOnMainActivity() {
+        if (moscowCitySelected) {
+            currentCity.setText(getString(R.string.moscow));
+            cityFromSettings = "";
+        } else if (peterburgCitySelected) {
+            currentCity.setText(getString(R.string.saint_petersburg));
+            cityFromSettings = "";
+        } else currentCity.setText(cityFromSettings);
     }
 
 

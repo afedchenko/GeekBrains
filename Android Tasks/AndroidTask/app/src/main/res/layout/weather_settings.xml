@@ -69,7 +69,6 @@
                 android:id="@+id/weather_settings_city_other"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:checked="true"
                 android:text="@string/other" />
 
         </RadioGroup>
@@ -78,7 +77,7 @@
             android:id="@+id/weather_settings_city_other_change"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/novosibirsk" />
+            android:inputType="textCapWords" />
 
         <Button
             android:id="@+id/weather_settings_button_back"
