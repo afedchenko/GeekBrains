@@ -5,7 +5,7 @@
     <string name="city_name_main_screen">Novosibirsk</string>
     <string name="city_weather_main_screen">-3°C</string>
     <string name="searchButtonText">Settings</string>
-    <string name="site">Site</string>
+    <string name="site">Browser</string>
 
     <!-- Settings screen -->
     <string name="Back">Back</string>
@@ -15,8 +15,8 @@
 
     <!-- Dictionaries -->
     <string name="wind_speed">Wind speed</string>
-    <string name="air_pressure">Air pressure</string>
-    <string name="air_humidity">Air humidity</string>
+    <string name="air_pressure">Pressure</string>
+    <string name="air_humidity">Humidity</string>
     <string name="novosibirsk">Novosibirsk</string>
     <string name="moscow">Moscow</string>
     <string name="saint_petersburg">St. Petersburg</string>

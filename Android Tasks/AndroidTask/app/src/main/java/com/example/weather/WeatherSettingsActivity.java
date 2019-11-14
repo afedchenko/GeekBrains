@@ -14,6 +14,8 @@ import androidx.annotation.Nullable;
 public class WeatherSettingsActivity extends Activity {
     private static final String TAG = "WeatherSettingsActivity";
     private EditText cityName;
+
+
     private static String CITY_NAME = "city_name";
 
     @Override
@@ -22,15 +24,17 @@ public class WeatherSettingsActivity extends Activity {
         showLog("OnCreate");
         setContentView(R.layout.weather_settings);
 
-        findViewById(R.id.buttonBackToMain).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.weather_settings_button_back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 clickOnBackButton();
             }
         });
 
-        cityName = findViewById(R.id.changeCityName);
+        cityName = findViewById(R.id.weather_settings_city_other_change);
         restoreData(savedInstanceState);
+
+
     }
 
     void clickOnBackButton(){
@@ -78,8 +82,8 @@ public class WeatherSettingsActivity extends Activity {
         showLog("onDestroy");
     }
 
-    private void showLog(String onCreate) {
-        Log.d(TAG, onCreate);
-        Toast.makeText(getApplicationContext(), onCreate, Toast.LENGTH_SHORT).show();
+    private void showLog(String logMessage) {
+        Log.d(TAG, logMessage);
+        //Toast.makeText(getApplicationContext(), logMessage, Toast.LENGTH_SHORT).show();
     }
 }

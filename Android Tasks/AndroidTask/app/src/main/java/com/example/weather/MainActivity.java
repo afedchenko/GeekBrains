@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         showLog("OnCreate");
         setContentView(R.layout.activity_main);
-        findViewById(R.id.buttonSetingsOnMainScreen).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.activity_main_button_setings).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 clickOnSettingsButton();
@@ -26,8 +26,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void clickOnSettingsButton() {
-        startActivity(new Intent(this, WeatherSettingsActivity.class));
+        startActivityForResult(new Intent(this, WeatherSettingsActivity.class), 7);
     }
+
+
 
     @Override
     protected void onStart() {
@@ -59,8 +61,8 @@ public class MainActivity extends AppCompatActivity {
         showLog("onDestroy");
     }
 
-    private void showLog(String onStart) {
-        Log.d(TAG, onStart);
-        Toast.makeText(getApplicationContext(), onStart, Toast.LENGTH_SHORT).show();
+    private void showLog(String logMessage) {
+        Log.d(TAG, logMessage);
+        //Toast.makeText(getApplicationContext(), logMessage, Toast.LENGTH_SHORT).show();
     }
 }
