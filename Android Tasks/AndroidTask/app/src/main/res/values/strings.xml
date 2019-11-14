@@ -5,6 +5,7 @@
     <string name="city_name_main_screen">Novosibirsk</string>
     <string name="city_weather_main_screen">-3°C</string>
     <string name="searchButtonText">Settings</string>
+    <string name="site">Site</string>
 
     <!-- Settings screen -->
     <string name="Back">Back</string>
