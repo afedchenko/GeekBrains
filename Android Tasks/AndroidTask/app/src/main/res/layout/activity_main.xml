@@ -8,16 +8,16 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="50dp"
+        android:paddingBottom="100dp"
         tools:context=".MainActivity">
 
 
         <ImageView
             android:id="@+id/activity_main_image_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="200dp"
             android:src="@drawable/novosibirsk"
-            android:scaleType="center"
+            android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -31,7 +31,7 @@
             android:layout_marginTop="16dp"
             android:text="@string/searchButtonText"
             app:layout_constraintStart_toStartOf="@id/activity_main_image_view"
-            app:layout_constraintTop_toBottomOf="@id/activity_main_image_view" />
+            app:layout_constraintTop_toTopOf="@id/activity_main_image_view" />
 
         <Button
             android:id="@+id/activity_main_button_browser"
@@ -41,14 +41,14 @@
             android:layout_marginEnd="16dp"
             android:text="@string/site"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/activity_main_image_view"  />
+            app:layout_constraintTop_toTopOf="@id/activity_main_image_view"  />
 
 
         <TextView
             android:id="@+id/activity_main_city_current"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/activity_main_button_setings"
+            app:layout_constraintTop_toBottomOf="@id/activity_main_image_view"
             android:layout_margin="32dp"
             android:gravity="center"
             android:text="@string/city_name_main_screen"
@@ -59,7 +59,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@+id/activity_main_city_current"
-            android:layout_margin="32dp"
             android:gravity="center"
             android:text="@string/city_weather_main_screen"
             android:textSize="60sp" />
@@ -72,7 +71,9 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="150dp"
+                    android:ellipsize="end"
+                    android:maxLines="1"
                     android:layout_height="wrap_content"
                     android:padding="16dp"
                     android:text="@string/air_humidity" />
@@ -92,7 +93,9 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="150dp"
+                    android:ellipsize="end"
+                    android:maxLines="1"
                     android:layout_height="wrap_content"
                     android:padding="16dp"
                     android:text="@string/wind_speed" />
@@ -112,7 +115,9 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="150dp"
+                    android:ellipsize="end"
+                    android:maxLines="1"
                     android:layout_height="wrap_content"
                     android:padding="16dp"
                     android:text="@string/air_pressure" />
