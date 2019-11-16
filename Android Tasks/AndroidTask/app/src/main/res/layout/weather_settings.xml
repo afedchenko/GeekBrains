@@ -14,34 +14,35 @@
         android:padding="16dp">
 
         <TextView
-            android:id="@+id/textViewSettingsBlockName"
+            android:id="@+id/weather_settings_title_settings"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:text="@string/set_view_parameters" />
 
-        <androidx.appcompat.widget.AppCompatCheckBox
-            android:id="@+id/checkBoxWindSpeed"
+        <Switch
+            android:id="@+id/weather_settings_wind_speed"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:checked="true"
+            android:layout_marginStart="8dp"
             android:text="@string/wind_speed" />
 
-        <androidx.appcompat.widget.AppCompatCheckBox
-            android:id="@+id/checkBoxAirPressure"
+        <Switch
+            android:id="@+id/weather_settings_pressure"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:checked="true"
+            android:layout_marginStart="8dp"
             android:text="@string/air_pressure" />
 
-        <CheckBox
-            android:id="@+id/checkBoxAirHumidity"
+        <Switch
+            android:id="@+id/weather_settings_humidity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:text="@string/air_humidity" />
 
         <TextView
-            android:id="@+id/textViewCitiesBlockName"
+            android:id="@+id/weather_settings_title_cities"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -53,39 +54,37 @@
             android:layout_height="wrap_content">
 
             <RadioButton
-                android:id="@+id/radioButtonMoscow"
+                android:id="@+id/weather_settings_city_moscow"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/moscow" />
 
             <RadioButton
-                android:id="@+id/radioButtonSaintPetersburg"
+                android:id="@+id/weather_settings_city_saint_petersburg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/saint_petersburg" />
 
             <RadioButton
-                android:id="@+id/radioButtonOtherCity"
+                android:id="@+id/weather_settings_city_other"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:checked="true"
                 android:text="@string/other" />
 
         </RadioGroup>
 
         <EditText
-            android:id="@+id/changeCityName"
+            android:id="@+id/weather_settings_city_other_change"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/novosibirsk" />
+            android:inputType="textCapWords" />
 
         <Button
-            android:id="@+id/buttonBackToMain"
+            android:id="@+id/weather_settings_button_back"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="@string/Back" />
 
     </LinearLayout>
-
 </ScrollView>
