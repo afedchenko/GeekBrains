@@ -28,7 +28,7 @@ public class WeatherSettingsActivity extends Activity {
     public static final String WIND_SPEED = "WeatherSettingsActivityWindSpeed";
     public static final String CITY_NAME = "WeatherSettingsCityName";
     public static final String CITY_MOSCOW = "WeatherSettingsActivityCityMoscow";
-    public static final String CITY_PETERBURG = "WeatherSettingsActivityCityPeterburg";
+    public static final String CITY_SAINT_PETERBURG = "WeatherSettingsActivityCityPeterburg";
     public static final String CITY_OTHER = "WeatherSettingsActivityCityOther";
 
     @Override
@@ -52,47 +52,66 @@ public class WeatherSettingsActivity extends Activity {
         moscow = findViewById(R.id.weather_settings_city_moscow);
         saintPetersburg = findViewById(R.id.weather_settings_city_saint_petersburg);
         other = findViewById(R.id.weather_settings_city_other);
-
         restoreData(savedInstanceState);
-        getSwitchStateFromMain();
+        cityNameToActivityMain();
+        getDataFromMain();
     }
 
+
+    //По аппаратной кнопке "Назад" делаем всё то же, что и по кнопке "Back"
     @Override
     public void onBackPressed() {
         clickOnBackButton();
     }
 
+    //Если otherCityCheckValue вернул true, то можем выходить назад в Main
     private void clickOnBackButton() {
         if (otherCityCheckValue()) {
-            cityNameValue = cityName.getText().toString();
             prepareResult();
             finish();
         }
     }
 
-    private void getSwitchStateFromMain() {
+    // Определяем, какой город нужно отправить в activityMain
+    public String cityNameToActivityMain() {
+        if (other.isChecked() && !cityName.getText().toString().equals("")) {
+            return cityNameValue = cityName.getText().toString();
+        } else if (moscow.isChecked()) {
+            return cityNameValue = getString(R.string.moscow);
+        } else if (saintPetersburg.isChecked()) {
+            return cityNameValue = getString(R.string.saint_petersburg);
+        } else return getString(R.string.city_name_main_screen);
+    }
+
+    //Получаем данные с activityMain
+    private void getDataFromMain() {
         humidity.setChecked(getIntent().getBooleanExtra(HUMIDITY, false));
         pressure.setChecked(getIntent().getBooleanExtra(PRESSURE, false));
         windSpeed.setChecked(getIntent().getBooleanExtra(WIND_SPEED, false));
-        moscow.setChecked(getIntent().getBooleanExtra(CITY_MOSCOW, true));
-        saintPetersburg.setChecked(getIntent().getBooleanExtra(CITY_PETERBURG, false));
-        other.setChecked(getIntent().getBooleanExtra(CITY_OTHER, false));
-        cityName.setText(getIntent().getStringExtra(CITY_NAME));
+
+        if (getIntent().getStringExtra(CITY_NAME).equals(getString(R.string.moscow))) {
+            cityName.setText("");
+            moscow.setChecked(true);
+        } else if (getIntent().getStringExtra(CITY_NAME).equals(getString(R.string.saint_petersburg))) {
+            cityName.setText("");
+            saintPetersburg.setChecked(true);
+        } else {
+            other.setChecked(true);
+            cityName.setText(getIntent().getStringExtra(CITY_NAME));
+        }
     }
 
+    //Подготавливаем данные для отправки в activityMain
     private void prepareResult() {
         Intent intent = new Intent();
         intent.putExtra(PRESSURE, pressure.isChecked());
         intent.putExtra(HUMIDITY, humidity.isChecked());
         intent.putExtra(WIND_SPEED, windSpeed.isChecked());
-        intent.putExtra(CITY_MOSCOW, moscow.isChecked());
-        intent.putExtra(CITY_PETERBURG, saintPetersburg.isChecked());
-        intent.putExtra(CITY_OTHER, other.isChecked());
-        intent.putExtra(CITY_NAME, cityNameValue);
-
+        intent.putExtra(CITY_NAME, cityNameToActivityMain());
         setResult(RESULT_OK, intent);
     }
 
+    //Проверяем, если выбран Other, но не заполнен EditText, то возвращаем false
     public boolean otherCityCheckValue() {
         if (other.isChecked() & cityName.getText().toString().equals("")) {
             Toast.makeText(this, "Выберите город", Toast.LENGTH_SHORT).show();
